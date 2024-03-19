@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -19,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
     <body className={inter.className}>
-    <Theme hasBackground={false} appearance="light">{children}</Theme></body>
+      <Theme className="w-full h-full" hasBackground={false} appearance="light">{children}</Theme></body>
     </html>
   );
 }
