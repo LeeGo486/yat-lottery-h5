@@ -1,5 +1,5 @@
-import Link from "next/link";
 import {Flex} from "@radix-ui/themes";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -9,10 +9,7 @@ export default function Home() {
       </Flex>
 
       <Flex grow="1" direction="column" align="center" justify="center" width="100%">
-        <img src="/welcome.png" alt="senix welcome image"/>
-        <Link href={"/info"} className="flex justify-center items-center drop-shadow-lg mt-3
-          w-48 h-14 bg-[rgb(var(--background-senix-orange-rgb))] border-0 rounded-md">
-          <span className="text-slate-100 font-sans font-bold text-xl italic uppercase">Lucky draw</span></Link>
+
       </Flex>
 
       <Flex align="center" justify="center" width="100%" height="9">

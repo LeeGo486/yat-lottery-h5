@@ -1,14 +1,15 @@
 
 import { Callout } from '@radix-ui/themes'
-import { InfoCircledIcon } from '@radix-ui/react-icons'
+import {ExclamationTriangleIcon} from '@radix-ui/react-icons'
+import Link from "next/link";
 export default function Home() {
   return (
-    <Callout.Root>
+    <Callout.Root color="yellow" variant="soft">
       <Callout.Icon>
-        <InfoCircledIcon />
+        <ExclamationTriangleIcon />
       </Callout.Icon>
-      <Callout.Text>
-        You will need admin privileges to install and access this application.
+      <Callout.Text color="indigo" weight="medium">
+        Each serial number can only be drawn once.
       </Callout.Text>
     </Callout.Root>
   )

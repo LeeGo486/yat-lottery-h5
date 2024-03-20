@@ -13,9 +13,9 @@ export interface Prize {
   }[];
 }
 interface HomeProps {
+  canPlay: boolean;
   prizes: Prize[];
   onEndGame: (prize: Prize) => void;
-  canPlay: boolean;
 }
 
 export default function Home({prizes, canPlay, onEndGame}: HomeProps) {
@@ -35,14 +35,14 @@ export default function Home({prizes, canPlay, onEndGame}: HomeProps) {
     <div>
       <LuckyWheel
         ref={myLucky}
-        width="20rem"
-        height="20rem"
+        width="19rem"
+        height="19rem"
         blocks={blocks}
         prizes={prizes}
         buttons={buttons}
         defaultConfig={{gutter: 1}}
         onStart={() => {
-          if (!canPlay) { return; }
+          if (!canPlay) {return;}
           // @ts-ignore
           myLucky.current.play()
           setTimeout(() => {
