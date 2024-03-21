@@ -10,8 +10,8 @@ export default function Home() {
 
   const [prizes] = useState([
     { background: '#EEEFEF', range: 10, fonts: [{ text: '电链锯', fontColor: '#4A6E85', fontWeight: 700, top: 10 }] },
-    { background: '#FFFFFF', range: 20, fonts: [{ text: '割草机', fontColor: '#4A6E85', fontWeight: 700, top: 10 }] },
-    { background: '#EEEFEF', range: 10, fonts: [{ text: '修枝剪', fontColor: '#4A6E85', fontWeight: 700, top: 10 }] },
+    { background: '#FFFFFF', range: 10, fonts: [{ text: '割草机', fontColor: '#4A6E85', fontWeight: 700, top: 10 }] },
+    { background: '#EEEFEF', range: 60, fonts: [{ text: '1个亿', fontColor: '#4A6E85', fontWeight: 700, top: 10 }] },
     { background: '#FFFFFF', range: 10, fonts: [{ text: '旋耕机', fontColor: '#4A6E85', fontWeight: 700, top: 10 }] },
     { background: '#EEEFEF', range: 10, fonts: [{ text: '护目镜', fontColor: '#4A6E85', fontWeight: 700, top: 10 }] },
     { background: '#FFFFFF', range: 10, fonts: [{ text: '电剪刀', fontColor: '#4A6E85', fontWeight: 700, top: 10 }] },
