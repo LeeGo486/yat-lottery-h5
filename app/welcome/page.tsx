@@ -12,11 +12,11 @@ export default function Home() {
         <img src="/welcome.png" alt="senix welcome image"/>
         <Link href={"/info"} className="flex justify-center items-center drop-shadow-lg mt-3
           w-48 h-14 bg-[rgb(var(--background-senix-orange-rgb))] border-0 rounded-md">
-          <span className="text-slate-100 font-sans font-bold text-xl italic uppercase">Lucky draw</span></Link>
+          <span className="text-slate-100 font-sans font-bold text-xl italic uppercase">Start</span></Link>
       </Flex>
 
       <Flex align="center" justify="center" width="100%" height="9">
-        <a href="https://www.senixtools.com" className="text-slate-50 text-xl">www.senixtools.com</a>
+        <Link href="https://www.senixtools.com" className="text-slate-50 text-xl">www.senixtools.com</Link>
       </Flex>
     </Flex>
   )
