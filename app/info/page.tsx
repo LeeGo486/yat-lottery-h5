@@ -4,8 +4,11 @@ import {Flex} from "@radix-ui/themes";
 import Link from "next/link";
 import Form from "./form/page";
 import {FormEvent} from "react";
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+
+  const router = useRouter()
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -14,6 +17,8 @@ export default function Home() {
     const customer = formData.get('customer') as string
     const phone = formData.get('phone') as string
     console.info(`code: ${code}, customer: ${customer}, phone: ${phone}`)
+
+    router.push('/lottery')
   }
 
   return (
