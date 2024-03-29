@@ -26,16 +26,18 @@ export default function Home() {
     sn: searchParams.get('sn') || '',
     ip: searchParams.get('ip') || ''
   }
-  const handleEndGame = (prize: Prize) => {
+  const handleEndGame = (prize: Prize | undefined) => {
     if (prize) {
-      const prizeUrl = new URLSearchParams();
-      const font = prize.fonts[0]
-      font && setIsWin(true)
-      font && setCanPlay(false)
-      prizeUrl.set('id', font.id.toString())
-      prizeUrl.set('name', font.text)
+      const prizeUrl = new URLSearchParams()
+      if(prize.fonts) {
+        const font = prize.fonts[0]
+        font && setIsWin(true)
+        font && setCanPlay(false)
+        prizeUrl.set('id', font.id.toString())
+        prizeUrl.set('name', font.text)
 
-      router.push(`/prize?${prizeUrl.toString()}`)
+        router.push(`/prize?${prizeUrl.toString()}`)
+      }
     }
   }
 

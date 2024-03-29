@@ -49,7 +49,7 @@ type Param = {
 interface HomeProps {
   param: Param;
   canPlay: boolean;
-  onEndGame: (prize: Prize) => void;
+  onEndGame: (prize: Prize | undefined) => void;
 }
 
 async function fetchLotteryItems() {
@@ -123,6 +123,14 @@ export default function Home({param, canPlay, onEndGame}: HomeProps) {
     })
   }
 
+  const getPrize = (id: number) => {
+    return prizes.find((p, i) => {
+      if (p.fonts[0].id === id) {
+        return p
+      }
+    })
+  }
+
   const [blocks] = useState([
     { padding: '10px', background: '#E24912' }
   ])
@@ -152,7 +160,11 @@ export default function Home({param, canPlay, onEndGame}: HomeProps) {
             setTimeout((res) => {
               if(res?.code === 200) {
                 myLucky.current?.stop(getLotteryIndex(res.data.id))
-              } else {
+              } else if (res?.code === 401) {
+                onEndGame(getPrize(res?.data.message.id));
+                myLucky.current?.init()
+              }
+              else {
                 myLucky.current?.init()
               }
             }, 2500, res)
