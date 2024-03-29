@@ -1,24 +1,112 @@
 'use client'
-
 import {Flex} from "@radix-ui/themes";
 import Link from "next/link";
 import Form from "./form/page";
 import {FormEvent} from "react";
-import { useRouter } from 'next/navigation'
+import {useRouter} from "next/navigation";
+
+type Resp = {
+  code: number
+  message: string
+  data: Data
+}
+
+type Data = {
+  code: number
+  message: Goods
+}
+
+type Goods = {
+  id: number
+  goodsName: string
+  url: string
+}
+
+type Param = {
+  uuid: string
+  phone: string
+  user: string
+  sn: string
+}
+
+async function isActiveLottery() {
+  try {
+    const res= await fetch('http://192.168.177.13:9987/activity/isEffective?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
+      method: 'GET'
+    })
+    const resp: Resp = await res.json()
+    return resp
+  } catch (e) {
+    console.error(`check is fault. error is ${JSON.stringify(e)}`)
+  }
+}
+
+async function createInfo(param: Param) {
+  let resp: Resp = {code: 500, message: 'service error.', data: {code: 0, message: { id: 0, goodsName: '', url: ''}}}
+
+  try {
+    const res= await fetch('http://192.168.177.13:9987/activity/check', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(param)
+    })
+    resp = await res.json()
+
+  } catch (e) {
+    console.error(`check is fault. error is ${JSON.stringify(e)}`)
+  }
+  return resp
+}
+
+
 
 export default function Home() {
-
   const router = useRouter()
+  const isEnd = () => {
+    isActiveLottery().then((resp: Resp | undefined ) => {
+      if(resp?.data) {
+        router.push('/end')
+      }
+    })
+  }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    isEnd() // check lottery is end.
+
     const formData = new FormData(event.currentTarget)
     const code = formData.get('code') as string
     const customer = formData.get('customer') as string
     const phone = formData.get('phone') as string
-    console.info(`code: ${code}, customer: ${customer}, phone: ${phone}`)
+    const lotteryParam = new URLSearchParams();
+    const prizeParam = new URLSearchParams();
+    const param: Param = {
+      uuid: 'decc3f33-e8e8-415d-952b-5f8defe4f48c',
+      phone: phone,
+      sn: code,
+      user: customer
+    }
 
-    router.push('/lottery')
+    lotteryParam.set('uuid', 'decc3f33-e8e8-415d-952b-5f8defe4f48c');
+    lotteryParam.set('phone', phone);
+    lotteryParam.set('sn', code);
+    lotteryParam.set('user', customer);
+
+    createInfo(param).then((resp: Resp) => {
+      const code = resp.code
+      const data = resp.data
+      if(code === 200) {
+        if (data.code === 1) {
+          router.push(`/lottery?${lotteryParam.toString()}`)
+        } else if (data.code === 2) {
+          prizeParam.set('id', data.message.id.toString())
+          prizeParam.set('name', data.message.goodsName)
+          router.push(`/prize?${prizeParam.toString()}`)
+        }
+      } else {}
+    })
   }
 
   return (
