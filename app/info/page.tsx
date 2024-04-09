@@ -31,7 +31,7 @@ type Param = {
 
 async function isActiveLottery() {
   try {
-    const res= await fetch('http://api.lottery.yat.com/activity/isEffective?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
+    const res= await fetch('https://api.lottery.yat.com/activity/isEffective?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
       method: 'GET'
     })
     const resp: Resp = await res.json()
@@ -45,7 +45,7 @@ async function createInfo(param: Param) {
   let resp: Resp = {code: 500, message: 'service error.', data: {code: 0, message: { id: 0, goodsName: '', url: ''}}}
 
   try {
-    const res= await fetch('http://api.lottery.yat.com/activity/check', {
+    const res= await fetch('https://api.lottery.yat.com/activity/check', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

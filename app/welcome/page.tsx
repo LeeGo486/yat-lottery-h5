@@ -11,7 +11,7 @@ type Resp = {
 
 async function isActiveLottery() {
   try {
-    const res= await fetch('http://api.lottery.yat.com/activity/isEffective?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
+    const res= await fetch('https://api.lottery.yat.com/activity/isEffective?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
       method: 'GET'
     })
     const resp: Resp = await res.json()
