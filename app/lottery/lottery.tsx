@@ -54,7 +54,7 @@ interface HomeProps {
 
 async function fetchLotteryItems() {
   try {
-    const res= await fetch('http://192.168.177.13:9987/activity/getGoods?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
+    const res= await fetch('http://api.lottery.yat.com/activity/getGoods?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
       method: 'GET'
     })
     const resp: PrizesResp = await res.json()
@@ -66,7 +66,7 @@ async function fetchLotteryItems() {
 
 async function getLotteryPrize(param: Param) {
   try {
-    const res= await fetch('http://192.168.177.13:9987/activity/lottery', {
+    const res= await fetch('http://api.lottery.yat.com/activity/lottery', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -99,8 +99,9 @@ export default function Home({param, canPlay, onEndGame}: HomeProps) {
               id: g.id,
               text: g.goodsName,
               fontColor: '#4A6E85',
-              fontWeight: 700,
-              top: 10
+              fontWeight: 400,
+              fontSize: 15,
+              top: 20
             }],
             imgs: []
           }
@@ -145,8 +146,8 @@ export default function Home({param, canPlay, onEndGame}: HomeProps) {
     <div>
       <LuckyWheel
         ref={myLucky}
-        width="19rem"
-        height="19rem"
+        width="20rem"
+        height="20rem"
         blocks={blocks}
         prizes={prizes}
         buttons={buttons}
