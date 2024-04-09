@@ -6,8 +6,8 @@ import {FormEvent} from "react";
 interface HomeProps {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
-export default ({onSubmit}: HomeProps) => (
-  <Form.Root className="w-full" onSubmit={(event) => { onSubmit(event) }}>
+export default function Home({onSubmit}: HomeProps) {
+  return (<Form.Root className="w-full" onSubmit={(event) => { onSubmit(event) }}>
     <Form.Field className="grid mb-[10px]" name="code">
       <div className="flex items-baseline justify-between">
         <Form.Label className="text-[15px] font-medium leading-[35px] text-white">SN Code</Form.Label>
@@ -60,4 +60,4 @@ export default ({onSubmit}: HomeProps) => (
       </button>
     </Form.Submit>
   </Form.Root>
-);
+  )};
