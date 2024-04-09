@@ -10,6 +10,7 @@ export interface Prize {
     text: string
     fontColor: string
     fontWeight: number
+    fontSize: number
     top: number
   }[];
   imgs: {
@@ -155,17 +156,23 @@ export default function Home({param, canPlay, onEndGame}: HomeProps) {
         onStart={() => {
 
           if (!canPlay) {return;}
+
+          // @ts-ignore
           myLucky.current?.play()
 
           handlePlayGame(myLucky).then(res=> {
             setTimeout((res) => {
               if(res?.code === 200) {
+                // @ts-ignore
                 myLucky.current?.stop(getLotteryIndex(res.data.id))
               } else if (res?.code === 401) {
+                // @ts-ignore
                 onEndGame(getPrize(res?.data.message.id));
+                // @ts-ignore
                 myLucky.current?.init()
               }
               else {
+                // @ts-ignore
                 myLucky.current?.init()
               }
             }, 2500, res)
