@@ -67,6 +67,12 @@ export default function Home() {
   const isEnd = () => {
     isActiveLottery().then((resp: Resp | undefined ) => {
       if(resp?.data) {
+        const code = resp.data.code
+        if (code !== 200) {
+          router.push('/end')
+        }
+
+      } else {
         router.push('/end')
       }
     })
@@ -105,7 +111,9 @@ export default function Home() {
           prizeParam.set('name', data.message.goodsName)
           router.push(`/prize?${prizeParam.toString()}`)
         }
-      } else {}
+      } else if (code === 400) {
+        alert(data.message)
+      }
     })
   }
 
