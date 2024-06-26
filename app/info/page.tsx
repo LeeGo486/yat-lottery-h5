@@ -27,6 +27,8 @@ type Param = {
   phone: string
   user: string
   sn: string
+  city: string
+  career: string
 }
 
 async function isActiveLottery() {
