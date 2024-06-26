@@ -61,6 +61,39 @@ export default class Home extends Component<HomeProps> {
             />
           </Form.Control>
         </Form.Field>
+        <Form.Field className="grid mb-[10px]" name="career">
+          <div className="flex items-baseline justify-between">
+            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
+              Your Career
+            </Form.Label>
+            <Form.Message className="text-[13px] text-[rgb(var(--background-senix-orange-rgb))] opacity-[0.8]"
+                          match="valueMissing">
+              Please enter your career
+            </Form.Message>
+          </div>
+          <Form.Control asChild>
+            <input
+              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
+            />
+          </Form.Control>
+        </Form.Field>
+        <Form.Field className="grid mb-[10px]" name="city">
+          <div className="flex items-baseline justify-between">
+            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
+              Your Country/City
+            </Form.Label>
+            <Form.Message className="text-[13px] text-[rgb(var(--background-senix-orange-rgb))] opacity-[0.8]"
+                          match="valueMissing">
+              Please enter your country name and your city name
+            </Form.Message>
+          </div>
+          <Form.Control asChild>
+            <input
+              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
+              required
+            />
+          </Form.Control>
+        </Form.Field>
         <Form.Submit asChild>
           <button
             className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-[rgb(var(--background-senix-orange-rgb))] px-[15px] font-medium leading-none shadow-[0_2px_10px] mt-[10px]">

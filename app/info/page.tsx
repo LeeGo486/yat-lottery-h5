@@ -86,12 +86,16 @@ export default function Home() {
     const code = formData.get('code') as string
     const customer = formData.get('customer') as string
     const phone = formData.get('phone') as string
+    const career = formData.get('career') as string
+    const city = formData.get('city') as string
     const lotteryParam = new URLSearchParams();
     const prizeParam = new URLSearchParams();
     const param: Param = {
       uuid: 'decc3f33-e8e8-415d-952b-5f8defe4f48c',
       phone: phone,
       sn: code,
+      city: city,
+      career: career,
       user: customer
     }
 
@@ -99,6 +103,8 @@ export default function Home() {
     lotteryParam.set('phone', phone);
     lotteryParam.set('sn', code);
     lotteryParam.set('user', customer);
+    lotteryParam.set('career', career);
+    lotteryParam.set('city', city);
 
     createInfo(param).then((resp: Resp) => {
       const code = resp.code
