@@ -152,7 +152,7 @@ export default function Home({param, canPlay, onEndGame}: HomeProps) {
         blocks={blocks}
         prizes={prizes}
         buttons={buttons}
-        defaultConfig={{gutter: 1}}
+        defaultConfig={{gutter: 4.5}}
         onStart={() => {
 
           if (!canPlay) {return;}
