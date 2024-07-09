@@ -8,10 +8,12 @@ import {useEffect, useState} from "react";
 export default function Home() {
 
   const [name, setName] = useState('')
+  const [priceCode,  setPriceCode] = useState('')
   const searchParams = useSearchParams()
 
   useEffect(() => {
     setName(searchParams.get('name') || '')
+    setName(searchParams.get('priceCode') || '')
   }, [])
 
   return (
@@ -20,6 +22,7 @@ export default function Home() {
         <img className="w-48" src="/logo.png" alt="senix logo image"/>
       </Flex>
       <Flex grow="1" direction="column" align="center" justify="center" width="100%">
+        <Text size="5" weight="medium" as="p" color="orange" mb="5" ><Strong>{name}</Strong></Text>
         <Text size="5" weight="medium" as="p" color="orange" mb="5" ><Strong>{name}</Strong></Text>
       </Flex>
 

@@ -35,6 +35,7 @@ export default function Home() {
         font && setCanPlay(false)
         prizeUrl.set('id', font.id.toString())
         prizeUrl.set('name', font.text)
+        prizeUrl.set('priceCode', font.serialCode)
 
         router.push(`/prize?${prizeUrl.toString()}`)
       }

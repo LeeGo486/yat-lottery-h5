@@ -7,14 +7,14 @@ export default function Home() {
   const [second, setSecond] = useState(10)
 
   useEffect(() => {
-    // if(second > 0) {
-    //   const timerId = setTimeout(() => {
-    //     setSecond(second - 1);
-    //   }, 1000);
-    //   return () => clearTimeout(timerId);
-    // } else {
-    //   window.location.href = 'https://sa.senix.co'
-    // }
+    if(second > 0) {
+      const timerId = setTimeout(() => {
+        setSecond(second - 1);
+      }, 1000);
+      return () => clearTimeout(timerId);
+    } else {
+      window.location.href = 'https://sa.senix.co'
+    }
   },[second])
   return (
     <Flex width="100%" height="100%" align="center" justify="between" direction="column">
