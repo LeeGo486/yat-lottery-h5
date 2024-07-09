@@ -36,7 +36,7 @@ export default function Home() {
       </Flex>
 
       <Flex align="center" justify="center" width="100%" height="9">
-        <Link href="https://www.senixtools.com" className="text-slate-50 text-xl">www.senixtools.com</Link>
+        <Link href="https://sa.senix.co" className="text-slate-50 text-xl">sa.senix.co</Link>
       </Flex>
     </Flex>
   )
