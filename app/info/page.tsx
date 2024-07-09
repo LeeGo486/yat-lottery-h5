@@ -1,8 +1,9 @@
 'use client'
-import {Flex} from "@radix-ui/themes";
+import {Flex, Callout} from "@radix-ui/themes";
+import {ExclamationTriangleIcon, InfoCircledIcon} from "@radix-ui/react-icons"
 import Link from "next/link";
 import Form from "./form/page";
-import {FormEvent} from "react";
+import {FormEvent, useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 
 type Resp = {
@@ -33,7 +34,7 @@ type Param = {
 
 async function isActiveLottery() {
   try {
-    const res= await fetch('https://api.lottery.yat.com/activity/isEffective?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
+    const res= await fetch('http://192.168.177.13:9987/activity/isEffective?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
       method: 'GET'
     })
     const resp: Resp = await res.json()
@@ -47,7 +48,7 @@ async function createInfo(param: Param) {
   let resp: Resp = {code: 500, message: 'service error.', data: {code: 0, message: { id: 0, goodsName: '', url: ''}}}
 
   try {
-    const res= await fetch('https://api.lottery.yat.com/activity/check', {
+    const res= await fetch('http://192.168.177.13:9987/activity/check', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,14 +67,18 @@ async function createInfo(param: Param) {
 
 export default function Home() {
   const router = useRouter()
+  const [isFaulted, setIsFaulted] = useState(false)
+  const [errMsg, setErrMsg] = useState('')
+
   const isEnd = () => {
     isActiveLottery().then((resp: Resp | undefined ) => {
       if(resp?.data) {
-        const code = resp.data.code
+        const code = resp.code
+
         if (code !== 200) {
+          console.info(JSON.stringify(resp?.data))
           router.push('/end')
         }
-
       } else {
         router.push('/end')
       }
@@ -92,6 +97,7 @@ export default function Home() {
     const city = formData.get('city') as string
     const lotteryParam = new URLSearchParams();
     const prizeParam = new URLSearchParams();
+
     const param: Param = {
       uuid: 'decc3f33-e8e8-415d-952b-5f8defe4f48c',
       phone: phone,
@@ -102,15 +108,18 @@ export default function Home() {
     }
 
     lotteryParam.set('uuid', 'decc3f33-e8e8-415d-952b-5f8defe4f48c');
+    lotteryParam.set('city', city);
+    lotteryParam.set('user', customer);
     lotteryParam.set('phone', phone);
     lotteryParam.set('sn', code);
-    lotteryParam.set('user', customer);
-    lotteryParam.set('career', career);
-    lotteryParam.set('city', city);
+    lotteryParam.set('career', '');
+
 
     createInfo(param).then((resp: Resp) => {
       const code = resp.code
       const data = resp.data
+
+      // 1登记成功参与抽奖 2已经抽奖 3填写信息不符规则
       if(code === 200) {
         if (data.code === 1) {
           router.push(`/lottery?${lotteryParam.toString()}`)
@@ -118,6 +127,11 @@ export default function Home() {
           prizeParam.set('id', data.message.id.toString())
           prizeParam.set('name', data.message.goodsName)
           router.push(`/prize?${prizeParam.toString()}`)
+        } else if (data.code === 3) {
+          const message = data.message
+          setIsFaulted(true)
+          // @ts-ignore
+          setErrMsg(message)
         }
       } else if (code === 400) {
         alert(data.message)
@@ -127,16 +141,25 @@ export default function Home() {
 
   return (
     <Flex direction="column" justify="between" width="auto" height="100%">
+
       <Flex align="center" justify="center" width="100%" height="9" mt="9">
         <img className="w-48" src="/logo.png" alt="senix logo image"/>
       </Flex>
 
       <Flex grow="1" direction="column" align="center" justify="center" width="100%">
+        {
+          isFaulted &&
+          <Callout.Root color="red" role="alert" className="bg-orange-600">
+              <Callout.Icon>
+                  <ExclamationTriangleIcon />
+              </Callout.Icon>
+              <Callout.Text>{errMsg}</Callout.Text>
+          </Callout.Root>
+        }
         <Form  onSubmit={handleSubmit}/>
       </Flex>
-
-      <Flex align="center" justify="center" width="100%" height="9">
-        <Link href="https://www.senixtools.com" className="text-slate-50 text-xl">www.senixtools.com</Link>
+      <Flex align="center" justify="center" width="100%" height="9" mt="1">
+        <Link href="https://sa.senix.co" className="text-slate-50 text-xl">sa.senix.co</Link>
       </Flex>
     </Flex>
   )

@@ -7,14 +7,14 @@ export default function Home() {
   const [second, setSecond] = useState(10)
 
   useEffect(() => {
-    if(second > 0) {
-      const timerId = setTimeout(() => {
-        setSecond(second - 1);
-      }, 1000);
-      return () => clearTimeout(timerId);
-    } else {
-      window.location.href = 'https://www.senixtools.com'
-    }
+    // if(second > 0) {
+    //   const timerId = setTimeout(() => {
+    //     setSecond(second - 1);
+    //   }, 1000);
+    //   return () => clearTimeout(timerId);
+    // } else {
+    //   window.location.href = 'https://sa.senix.co'
+    // }
   },[second])
   return (
     <Flex width="100%" height="100%" align="center" justify="between" direction="column">
@@ -25,7 +25,7 @@ export default function Home() {
         <Flex direction="column" align="center" justify="start"
           className="w-80 h-40 border-4 rounded-xl border-[rgb(var(--background-senix-orange-rgb))] bg-white">
           <Box className="mt-4">
-            <Text weight="medium" size="5" className="text-orange-600">The raffle has ended</Text>
+            <Text weight="medium" size="5" className="text-orange-600">The lottery has ended</Text>
           </Box>
           <Box className="mt-2 px-2">
             <Text weight="regular" size="3" className="px-2">You will be redirected to the official website in
