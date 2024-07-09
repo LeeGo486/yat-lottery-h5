@@ -51,10 +51,10 @@ export default function Home() {
       </Flex>
       <Flex grow="1" width="100%" direction="column" align="center" justify="center">
         <Lottery param={param} canPlay={canPlay} onEndGame={handleEndGame}/>
-        <Text weight="medium" size="5" className="text-slate-50" mt="1">Click Go to start</Text>
+        <Text weight="medium" size="5" className="text-slate-50" mt="2">Click Go to start</Text>
       </Flex>
       <Flex width="100%" height="9" align="center" justify="center">
-        <a href="https://www.senixtools.com" className="text-slate-50 text-xl">www.senixtools.com</a>
+        <a href="https://sa.senix.co" className="text-slate-50 text-xl">sa.senix.co</a>
       </Flex>
     </Flex>
   )

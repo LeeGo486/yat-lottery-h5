@@ -56,7 +56,7 @@ interface HomeProps {
 
 async function fetchLotteryItems() {
   try {
-    const res= await fetch('http://192.168.177.13:9987/activity/getGoods?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
+    const res= await fetch('https://api.lottery.yat.com/activity/getGoods?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
       method: 'GET'
     })
     const resp: PrizesResp = await res.json()
@@ -68,7 +68,7 @@ async function fetchLotteryItems() {
 
 async function getLotteryPrize(param: Param) {
   try {
-    const res= await fetch('http://192.168.177.13:9987/activity/lottery', {
+    const res= await fetch('https://api.lottery.yat.com/activity/lottery', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

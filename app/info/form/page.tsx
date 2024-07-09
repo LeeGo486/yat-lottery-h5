@@ -1,8 +1,8 @@
 'use client'
 
 import * as Form from '@radix-ui/react-form';
-import { Select } from '@radix-ui/themes';
-import {Component, FormEvent} from "react";
+import {Component, FormEvent } from "react";
+import {Checkbox, Flex, Text} from '@radix-ui/themes'
 
 interface HomeProps {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;

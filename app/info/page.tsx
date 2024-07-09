@@ -1,9 +1,9 @@
 'use client'
-import {Flex, Callout} from "@radix-ui/themes";
-import {ExclamationTriangleIcon, InfoCircledIcon} from "@radix-ui/react-icons"
+import {Flex, Callout, Checkbox} from "@radix-ui/themes";
+import {ExclamationTriangleIcon} from "@radix-ui/react-icons"
 import Link from "next/link";
 import Form from "./form/page";
-import {FormEvent, useEffect, useState} from "react";
+import {FormEvent, useState} from "react";
 import {useRouter} from "next/navigation";
 
 type Resp = {
@@ -30,11 +30,12 @@ type Param = {
   sn: string
   city: string
   career: string
+  isAgreed: number
 }
 
 async function isActiveLottery() {
   try {
-    const res= await fetch('http://192.168.177.13:9987/activity/isEffective?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
+    const res= await fetch('https://api.lottery.yat.com/activity/isEffective?uuid=decc3f33-e8e8-415d-952b-5f8defe4f48c', {
       method: 'GET'
     })
     const resp: Resp = await res.json()
@@ -48,7 +49,7 @@ async function createInfo(param: Param) {
   let resp: Resp = {code: 500, message: 'service error.', data: {code: 0, message: { id: 0, goodsName: '', url: ''}}}
 
   try {
-    const res= await fetch('http://192.168.177.13:9987/activity/check', {
+    const res= await fetch('https://api.lottery.yat.com/activity/check', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,19 +57,17 @@ async function createInfo(param: Param) {
       body: JSON.stringify(param)
     })
     resp = await res.json()
-
   } catch (e) {
     console.error(`check is fault. error is ${JSON.stringify(e)}`)
   }
   return resp
 }
 
-
-
 export default function Home() {
   const router = useRouter()
   const [isFaulted, setIsFaulted] = useState(false)
   const [errMsg, setErrMsg] = useState('')
+  const [isAgreed, setIsAgreed] = useState(false)
 
   const isEnd = () => {
     isActiveLottery().then((resp: Resp | undefined ) => {
@@ -83,6 +82,11 @@ export default function Home() {
         router.push('/end')
       }
     })
+  }
+
+  const setChecked = ((prevIsChecked: boolean) => setIsAgreed(prevIsChecked))
+  const linkTerms = () => {
+    console.info(111)
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -104,7 +108,8 @@ export default function Home() {
       sn: code,
       city: city,
       career: career,
-      user: customer
+      user: customer,
+      isAgreed: isAgreed? 0:1
     }
 
     lotteryParam.set('uuid', 'decc3f33-e8e8-415d-952b-5f8defe4f48c');
@@ -126,6 +131,7 @@ export default function Home() {
         } else if (data.code === 2) {
           prizeParam.set('id', data.message.id.toString())
           prizeParam.set('name', data.message.goodsName)
+          prizeParam.set('priceCode', data.message.goodsName)
           router.push(`/prize?${prizeParam.toString()}`)
         } else if (data.code === 3) {
           const message = data.message
@@ -156,7 +162,13 @@ export default function Home() {
               <Callout.Text>{errMsg}</Callout.Text>
           </Callout.Root>
         }
-        <Form  onSubmit={handleSubmit}/>
+
+        <Form onSubmit={handleSubmit} />
+
+        <Flex align="center" justify="center" width="100%"  className="mt-4">
+          <Checkbox checked={isAgreed} onCheckedChange={setChecked} />
+          <Link href="/agreement" onClick={linkTerms} color="indigo" className="text-white border-b-2 ml-4">Agree to Terms and Conditions</Link>
+        </Flex>
       </Flex>
       <Flex align="center" justify="center" width="100%" height="9" mt="1">
         <Link href="https://sa.senix.co" className="text-slate-50 text-xl">sa.senix.co</Link>
