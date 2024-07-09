@@ -99,9 +99,9 @@ export default function Home({param, canPlay, onEndGame}: HomeProps) {
             fonts: [{
               id: g.id,
               text: g.goodsName,
-              fontColor: '#4A6E85',
-              fontWeight: 400,
-              fontSize: 15,
+              fontColor: g.goodsName === 'cash'? '#E04307': '#4A6E85',
+              fontWeight: g.goodsName === 'cash'? 800: 400,
+              fontSize: g.goodsName === 'cash'? 18: 15,
               top: 20
             }],
             imgs: []
