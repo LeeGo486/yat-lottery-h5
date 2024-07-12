@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     setName(searchParams.get('name') || '')
-    setName(searchParams.get('priceCode') || '')
+    setPriceCode(searchParams.get('priceCode') || '')
   }, [])
 
   return (
@@ -22,12 +22,12 @@ export default function Home() {
         <img className="w-48" src="/logo.png" alt="senix logo image"/>
       </Flex>
       <Flex grow="1" direction="column" align="center" justify="center" width="100%">
-        <Text size="5" weight="medium" as="p" color="orange" mb="5" ><Strong>{name}</Strong></Text>
-        <Text size="5" weight="medium" as="p" color="orange" mb="5" ><Strong>{name}</Strong></Text>
+        <Text size="5" weight="medium" as="p" color="orange" mb="5" >Prize: <Strong>{name}</Strong></Text>
+        <Text size="5" weight="medium" as="p" color="orange" mb="5" >Code: <Strong>{priceCode}</Strong></Text>
       </Flex>
 
       <Flex align="center" justify="center" width="100%" height="9">
-        <Link href="https://www.senixtools.com" className="text-slate-50 text-xl">www.senixtools.com</Link>
+        <Link href="https://sa.senix.co" className="text-slate-50 text-xl">sa.senix.co</Link>
       </Flex>
     </Flex>
   )

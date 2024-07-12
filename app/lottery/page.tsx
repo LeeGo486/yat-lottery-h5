@@ -10,6 +10,7 @@ type Param = {
   user: string
   sn: string
   ip: string
+  isAgreed: number
 }
 
 export default function Home() {
@@ -24,19 +25,18 @@ export default function Home() {
     phone: searchParams.get('phone') || '',
     user: searchParams.get('user') || '',
     sn: searchParams.get('sn') || '',
-    ip: searchParams.get('ip') || ''
+    ip: searchParams.get('ip') || '',
+    isAgreed: searchParams.get('isAgreed' || false)? 1: 0,
   }
   const handleEndGame = (prize: Prize | undefined) => {
     if (prize) {
       const prizeUrl = new URLSearchParams()
-      if(prize.fonts) {
-        const font = prize.fonts[0]
-        font && setIsWin(true)
-        font && setCanPlay(false)
-        prizeUrl.set('id', font.id.toString())
-        prizeUrl.set('name', font.text)
-        prizeUrl.set('priceCode', font.serialCode)
-
+      if(prize) {
+        prize && setIsWin(true)
+        prize && setCanPlay(false)
+        prizeUrl.set('id', String(prize.id))
+        prizeUrl.set('name', prize.goodsName)
+        prizeUrl.set('priceCode', prize.serialCode)
         router.push(`/prize?${prizeUrl.toString()}`)
       }
     }

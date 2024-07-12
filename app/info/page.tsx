@@ -20,6 +20,7 @@ type Data = {
 type Goods = {
   id: number
   goodsName: string
+  serialCode: string
   url: string
 }
 
@@ -46,7 +47,7 @@ async function isActiveLottery() {
 }
 
 async function createInfo(param: Param) {
-  let resp: Resp = {code: 500, message: 'service error.', data: {code: 0, message: { id: 0, goodsName: '', url: ''}}}
+  let resp: Resp = {code: 500, message: 'service error.', data: {code: 0, message: { id: 0, goodsName: '', url: '', serialCode: ''}}}
 
   try {
     const res= await fetch('https://api.lottery.yat.com/activity/check', {
@@ -75,7 +76,6 @@ export default function Home() {
         const code = resp.code
 
         if (code !== 200) {
-          console.info(JSON.stringify(resp?.data))
           router.push('/end')
         }
       } else {
@@ -85,9 +85,7 @@ export default function Home() {
   }
 
   const setChecked = ((prevIsChecked: boolean) => setIsAgreed(prevIsChecked))
-  const linkTerms = () => {
-    console.info(111)
-  }
+  const linkTerms = () => {}
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -117,6 +115,7 @@ export default function Home() {
     lotteryParam.set('user', customer);
     lotteryParam.set('phone', phone);
     lotteryParam.set('sn', code);
+    lotteryParam.set('isAgreed', isAgreed? '1': '0');
     lotteryParam.set('career', '');
 
 
@@ -131,7 +130,7 @@ export default function Home() {
         } else if (data.code === 2) {
           prizeParam.set('id', data.message.id.toString())
           prizeParam.set('name', data.message.goodsName)
-          prizeParam.set('priceCode', data.message.goodsName)
+          prizeParam.set('priceCode', data.message.serialCode)
           router.push(`/prize?${prizeParam.toString()}`)
         } else if (data.code === 3) {
           const message = data.message
