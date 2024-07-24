@@ -118,6 +118,11 @@ export default function Home() {
     lotteryParam.set('isAgreed', isAgreed? '1': '0');
     lotteryParam.set('career', '');
 
+    if (city === 'United States' || city === 'Australia' || city === 'New Zealand' || city === 'Mexico') {
+      setErrMsg('Sorry, You provided the SN code is not sold in this country.')
+      return false
+    }
+
 
     createInfo(param).then((resp: Resp) => {
       const code = resp.code

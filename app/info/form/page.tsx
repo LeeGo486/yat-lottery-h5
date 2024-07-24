@@ -24,10 +24,14 @@ export default class Home extends Component<HomeProps> {
           </div>
           <Form.Control asChild>
             <select defaultValue={'Philippines'}
-              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex appearance-auto items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none">
+                    className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex appearance-auto items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none">
               <option value="Philippines">Philippines</option>
               <option value="Vietnam">Vietnam</option>
               <option value="Indonesia">Indonesia</option>
+              <option value="United States">United States</option>
+              <option value="Australia">Australia</option>
+              <option value="New Zealand">New Zealand</option>
+              <option value="Mexico">Mexico</option>
             </select>
           </Form.Control>
         </Form.Field>
